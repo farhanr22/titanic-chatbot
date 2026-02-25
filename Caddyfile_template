@@ -1,0 +1,14 @@
+yourapi.example.org {
+
+    log {
+        output file [access file path] {
+            roll_size     5MB
+            roll_keep     10
+            roll_keep_for 720h
+        }
+    }
+
+    encode zstd gzip
+
+    reverse_proxy 127.0.0.1:8900
+}
