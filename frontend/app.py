@@ -10,6 +10,10 @@ from api import query_agent_api
 # Set up the static components and layout
 setup_page_layout()
 
+# Check user authorization
+query_user = st.query_params.get("user")
+valid_user = st.secrets.get("USERNAME")
+
 # Initialize session state
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -27,9 +31,23 @@ for i, msg in enumerate(st.session_state.messages):
                 msg["figure"], use_container_width=True, key=f"history_plot_{i}"
             )
 
-# Chat input & processing
-user_input = st.chat_input("Ask about the Titanic dataset...")
 
+# Chat input with authorization logic
+if not query_user:
+    st.warning("⚠️ You need a valid user parameter to use this chatbot.")
+elif query_user != valid_user:
+    st.error("❌ Invalid user.")
+
+if not query_user:
+    user_input = st.chat_input(
+        "You need a valid user parameter to use this chatbot.", disabled=True
+    )
+elif query_user != valid_user:
+    user_input = st.chat_input("Invalid user", disabled=True)
+else:
+    user_input = st.chat_input("Ask about the Titanic dataset...", disabled=False)
+
+# Process chat input
 if user_input:
     # Display user input immediately
     st.session_state.messages.append({"role": "user", "content": user_input})
