@@ -67,4 +67,4 @@ def render_sidebar():
         st.info("**Provider :** Krutrim Cloud")
         st.info("**Framework :** LangChain")
         st.write("---")
-        st.caption("Developed by Farhan Rahaman for TailorTalk Internship Assignment.")
+        st.caption("Developed by Farhan Rahaman for TailorTalk Internship Assignment.  \n**[GitHub Link](https://github.com/farhanr22/titanic-chatbot)**")
