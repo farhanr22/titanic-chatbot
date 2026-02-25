@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pydantic
+pydantic-settings
+langchain
+langchain-core
+langchain-openai
+langgraph-checkpoint-sqlite
+langgraph
+plotly==6.5.2
+pandas
+python-dotenv
+httpx
+aiosqlite

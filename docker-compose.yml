@@ -1,0 +1,19 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8900:8000"
+    volumes:
+      - ./backend:/app # Bind mount for hot reload
+      - data_vol:/data
+      - log_vol:/logs
+      - hist_vol:/history
+    extra_hosts:                              
+      - "host.docker.internal:host-gateway"   
+    env_file:
+      - ./backend/.env
+
+volumes:
+  data_vol:
+  log_vol:
+  hist_vol:
