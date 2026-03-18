@@ -48,7 +48,7 @@ After the ReAct loop is completed, the system returns the final output message i
 - **Persistence:** The agent uses a checkpointer (`AsyncSqliteSaver`) to store agent history in a SQLite database, allowing it to maintain context across API calls for the same chat.
 
 ### Security & Infrastructure
-- The API is protected via Bearer Token authentication. Additionally, the frontend requires a specific URL query parameter to prevent unauthorized public access to the demo.
+- The API is protected via Bearer Token authentication. Additionally, the frontend (optionally) requires a specific URL query parameter to prevent unauthorized public access to the demo.
 - The backend is containerized with Docker for providing a basic layer of security against the Remote Code Execution (RCE) risk from LLM code-generation.
 - Logging is set up to record user queries, agent tool-calls, and system errors to log files in a Docker volume.
 

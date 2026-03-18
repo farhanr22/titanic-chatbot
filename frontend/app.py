@@ -33,16 +33,20 @@ for i, msg in enumerate(st.session_state.messages):
 
 
 # Chat input with authorization logic
-if not query_user:
-    st.warning("⚠️ You need a valid user parameter to use this chatbot.")
-elif query_user != valid_user:
-    st.error("❌ Invalid user.")
+# If USERNAME secret is not set, skip validation and allow public access
+auth_enabled = valid_user is not None
 
-if not query_user:
+if auth_enabled:
+    if not query_user:
+        st.warning("⚠️ You need a valid user parameter to use this chatbot.")
+    elif query_user != valid_user:
+        st.error("❌ Invalid user.")
+
+if auth_enabled and not query_user:
     user_input = st.chat_input(
         "You need a valid user parameter to use this chatbot.", disabled=True
     )
-elif query_user != valid_user:
+elif auth_enabled and query_user != valid_user:
     user_input = st.chat_input("Invalid user", disabled=True)
 else:
     user_input = st.chat_input("Ask about the Titanic dataset...", disabled=False)
