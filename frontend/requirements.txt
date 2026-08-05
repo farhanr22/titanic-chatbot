@@ -2,3 +2,4 @@ streamlit
 plotly==6.5.2
 numpy
 requests
+starlette<1.4.0
