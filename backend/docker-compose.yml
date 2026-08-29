@@ -1,5 +1,8 @@
+name: titanic-chatbot
+
 services:
   backend:
+    container_name: titanic-backend
     build: .
     ports:
       - "8900:8000"
