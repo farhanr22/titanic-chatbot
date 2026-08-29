@@ -1,3 +1,4 @@
+import json
 import os
 import aiosqlite
 from langchain_openai import ChatOpenAI
@@ -6,6 +7,7 @@ from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 from app.agent.tools import tools
 from app.core.config import settings
 from app.agent.prompt import system_prompt
+from app.core.logging import app_logger
 
 # Global instance
 _agent_executor = None
@@ -20,14 +22,29 @@ async def init_agent():
     _db_conn = await aiosqlite.connect("/history/history.db")
     memory = AsyncSqliteSaver(_db_conn)
 
-    llm = ChatOpenAI(
-        model=settings.MODEL_NAME,
-        temperature=0.2,
-        openai_api_base=settings.OPENAI_API_BASE,
-        api_key=settings.OPENAI_API_KEY,
-        max_retries=5,
-        timeout=25.0,
-    )
+    extra_body = None
+    if settings.MODEL_EXTRA_BODY:
+        try:
+            extra_body = json.loads(settings.MODEL_EXTRA_BODY)
+        except json.JSONDecodeError as e:
+            app_logger.warning(f"Failed to parse MODEL_EXTRA_BODY JSON: {e}")
+
+    llm_kwargs = {
+        "model": settings.MODEL_NAME,
+        "temperature": settings.MODEL_TEMPERATURE,
+        "openai_api_base": settings.OPENAI_API_BASE,
+        "api_key": settings.OPENAI_API_KEY,
+        "max_retries": 3,
+        "timeout": 15.0,
+    }
+
+    if settings.MODEL_TOP_P is not None:
+        llm_kwargs["top_p"] = settings.MODEL_TOP_P
+
+    if extra_body:
+        llm_kwargs["extra_body"] = extra_body
+
+    llm = ChatOpenAI(**llm_kwargs)
 
     _agent_executor = create_agent(
         llm, tools, system_prompt=system_prompt, checkpointer=memory

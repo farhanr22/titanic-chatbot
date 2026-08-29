@@ -64,6 +64,7 @@ After the ReAct loop is completed, the system returns the final output message i
    OPENAI_API_KEY=your_provider_api_key
    OPENAI_API_BASE=https://api.yourprovider.com/v1 
    MODEL_NAME=your_model_choice
+   # any other options from .env.example like MODEL_TEMPERATURE, MODEL_TOP_P, MODEL_EXTRA_BODY
    ```
 3. Run with Docker Compose:
    ```bash

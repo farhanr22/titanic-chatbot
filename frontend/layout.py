@@ -57,14 +57,38 @@ def render_header():
         "<hr style='margin:0;margin-bottom:25px; border:0; border-top:1px solid darkblue;'>",
         unsafe_allow_html=True,
     )
-
-
 def render_sidebar():
     with st.sidebar:
-        st.title("🛠️ Tech Stack")
-        st.info("**Backend :** FastAPI on OCI")
-        st.info("**Model :** GPT-OSS-120B")
-        st.info("**Provider :** Krutrim Cloud")
-        st.info("**Framework :** LangChain")
-        st.write("---")
-        st.caption("Developed by Farhan Rahaman.  \n**[GitHub Link](https://github.com/farhanr22/titanic-chatbot)**")
+        st.title("🚢 Titanic Analyst")
+        st.markdown(
+            "AI data analysis agent built using **FastAPI**, **LangChain**, and **Streamlit**. "
+            "Equipped with **Pandas** and **Plotly** tools to query the dataset and generate visualizations."
+        )
+
+        with st.expander("📊 About the Dataset", expanded=False):
+            st.markdown(
+                """
+                Contains information for **891** Titanic passengers, covering:
+                - **Survival Outcome:** Alive / Dead
+                - **Ticket Class:** 1st, 2nd, 3rd class
+                - **Demographics:** Gender and Age
+                - **Family Onboard:** Siblings, spouses, parents, children
+                - **Ticket Fare:** Price paid for the journey
+                - **Port of Embarkation:** Cherbourg, Queenstown, Southampton
+                """
+            )
+
+        with st.expander("💡 Sample Prompts", expanded=False):
+            st.markdown(
+                """
+                - *"How many passengers survived vs died?"*
+                - *"What was the average fare paid across passenger classes?"*
+                - *"Plot a bar chart of survival count by gender with custom colors."*
+                - *"Show the age distribution across passenger classes as a violin plot."*
+                - *"Calculate the survival rate for passengers traveling alone vs with family."*
+                - *"Create an interactive sunburst chart showing Class → Gender → Survival breakdown."*
+                """
+            )
+
+        st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
+        st.caption("Developed by Farhan Rahaman.  \n**[View on GitHub](https://github.com/farhanr22/titanic-chatbot)**")
