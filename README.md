@@ -72,10 +72,11 @@ After the ReAct loop is completed, the system returns the final output message i
    ```
 
 ### Frontend (using `uv`)
+1. Navigate to the `frontend/` directory.
 2. Create a virtual environment and install requirements:
    ```bash
    uv venv
-   source venv/bin/activate
+   source .venv/bin/activate
    uv sync
    ```
 3. Copy `.streamlit/secrets.toml.example` into `.streamlit/secrets.toml` and fill in your values.
