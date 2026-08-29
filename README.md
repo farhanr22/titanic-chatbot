@@ -70,13 +70,12 @@ After the ReAct loop is completed, the system returns the final output message i
    docker compose up --build
    ```
 
-### Frontend (using `venv`)
-1. Navigate to the `frontend/` directory.
+### Frontend (using `uv`)
 2. Create a virtual environment and install requirements:
    ```bash
-   python3 -m venv venv
+   uv venv
    source venv/bin/activate
-   pip install -r requirements.txt
+   uv sync
    ```
 3. Copy `.streamlit/secrets.toml.example` into `.streamlit/secrets.toml` and fill in your values.
    ```toml
